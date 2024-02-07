@@ -30,6 +30,7 @@ LABEL_KEY = 'Cover_Type'
 NUM_CLASSES = 7
 
 def transformed_name(key):
+  print('hola')
   return key + '_xf'
 
 
