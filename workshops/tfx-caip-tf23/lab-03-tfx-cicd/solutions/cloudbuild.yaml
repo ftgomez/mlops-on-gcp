@@ -31,7 +31,7 @@ steps:
   env: 
   - 'GCP_REGION=us-central1-a'  
   - 'PROJECT_ID=qwiklabs-gcp-01-5985572b78bd '
-  - 'PIPELINE_NAME=tfx_covertype_continuous_training-test'
+  - 'PIPELINE_NAME=tfx_covertype_continuous_training-test-2'
   - 'MODEL_NAME=tfx_covertype_classifier'  
   - 'ARTIFACT_STORE_URI=gs://qwiklabs-gcp-01-5985572b78bd-kubeflowpipelines-default/'
   - 'CUSTOM_SERVICE_ACCOUNT=tfx-tuner-caip-service-account@qwiklabs-gcp-01-5985572b78bd.iam.gserviceaccount.com'
