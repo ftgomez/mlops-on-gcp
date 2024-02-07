@@ -22,27 +22,27 @@
 steps:
 # Build the image that encapsulates the pipeline.
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/$_TFX_IMAGE_NAME:$TAG_NAME', '.']
-  dir: $_PIPELINE_FOLDER
+  args: ['build', '-t', 'gcr.io/qwiklabs-gcp-01-5985572b78bd/tab-03-tfx-image:test', '.']
+  dir: workshops/tfx-caip-tf23/lab-03-tfx-cicd/solutions/pipeline
 
   
-- name: 'gcr.io/$PROJECT_ID/tfx-cli'
-  args: ['pipeline', 'create', '--engine', 'kubeflow', '--pipeline_path', '$_PIPELINE_DSL', '--endpoint', '$_ENDPOINT']
+- name: 'gcr.io/qwiklabs-gcp-01-5985572b78bd/tfx-cli'
+  args: ['pipeline', 'create', '--engine', 'kubeflow', '--pipeline_path', 'runner.py', '--endpoint', 'https://29d75faba65a24a6-dot-us-central1.pipelines.googleusercontent.com']
   env: 
-  - 'GCP_REGION=$_GCP_REGION'  
-  - 'PROJECT_ID=$PROJECT_ID'
-  - 'PIPELINE_NAME=${_PIPELINE_NAME}-${TAG_NAME}'
-  - 'MODEL_NAME=$_MODEL_NAME'  
-  - 'ARTIFACT_STORE_URI=$_ARTIFACT_STORE_URI'
-  - 'CUSTOM_SERVICE_ACCOUNT=$_CUSTOM_SERVICE_ACCOUNT'
-  - 'DATA_ROOT_URI=$_DATA_ROOT_URI'
-  - 'KUBEFLOW_TFX_IMAGE=gcr.io/$PROJECT_ID/$_TFX_IMAGE_NAME:$TAG_NAME'
-  - 'RUNTIME_VERSION=_$_RUNTIME_VERSION'
-  - 'PYTHON_VERSION=$_PYTHON_VERSION'
-  - 'USE_KFP_SA=$_USE_KFP_SA'
-  - 'ENABLE_TUNING=$_ENABLE_TUNING'
-  dir: $_PIPELINE_FOLDER
+  - 'GCP_REGION=us-central1-a'  
+  - 'PROJECT_ID=qwiklabs-gcp-01-5985572b78bd '
+  - 'PIPELINE_NAME=tfx_covertype_continuous_training-test'
+  - 'MODEL_NAME=tfx_covertype_classifier'  
+  - 'ARTIFACT_STORE_URI=gs://qwiklabs-gcp-01-5985572b78bd-kubeflowpipelines-default/'
+  - 'CUSTOM_SERVICE_ACCOUNT=tfx-tuner-caip-service-account@qwiklabs-gcp-01-5985572b78bd.iam.gserviceaccount.com'
+  - 'DATA_ROOT_URI=gs://cloud-training/OCBL203/workshop-datasets'
+  - 'KUBEFLOW_TFX_IMAGE=gcr.io/qwiklabs-gcp-01-5985572b78bd/lab-03-tfx-image:test'
+  - 'RUNTIME_VERSION=2.3'
+  - 'PYTHON_VERSION=3.7'
+  - 'USE_KFP_SA=False'
+  - 'ENABLE_TUNING=True'
+  dir: workshops/tfx-caip-tf23/lab-03-tfx-cicd/solutions/pipeline
 
 
 # Push the custom image to Container Registry 
-images: ['gcr.io/$PROJECT_ID/$_TFX_IMAGE_NAME:$TAG_NAME']
+images: ['gcr.io/qwiklabs-gcp-01-5985572b78bd/lab-03-tfx-image:test']
